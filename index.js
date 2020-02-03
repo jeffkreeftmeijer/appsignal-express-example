@@ -9,9 +9,18 @@ const appsignal = new Appsignal({
 })
 const app = express()
 const port = 3000
+const tracer = appsignal.tracer()
 
 app.use(expressMiddleware(appsignal))
 
-app.get('/', (req, res) => res.send('Hello World!'))
+app.get('/', function (req, res) {
+  const span = tracer.currentSpan()
+  const child = span.child("child")
+
+  res.send('Hello World!')
+
+  child.addError(new Error("test error"))
+  child.close()
+})
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
