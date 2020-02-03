@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@appsignal/express": "0.1.0-alpha.3",
     "@appsignal/nodejs": "0.1.0-alpha.7",
     "express": "^4.17.1"
   },
